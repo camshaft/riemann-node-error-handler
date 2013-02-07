@@ -1,13 +1,16 @@
 /**
  * Module dependencies
  */
-
+var riemann = require("simple-riemann");
 
 /**
  * Riemann Error Handler
  */
 module.exports = function(client, config) {
-  // TODO check if client is actually config and make a connection
+  if (typeof config === "undefined") {
+    config = client;
+    client = riemann();
+  };
 
   return function riemannErrorHandler(err, req, res, next) {
     client.send(client.Event({

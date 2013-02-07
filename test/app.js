@@ -5,21 +5,11 @@ var express = require("express");
 
 var app = module.exports = express();
 
-app.on('ready', function() {
-
-  app.riemann = require('riemann').createClient({ host: process.env.RIEMANN_HOST, port: 5555 });
-
-  app.riemann.on('connect', function() {
-    console.log("connected");
-  });
-
-  app.on('close', function() {
-    app.riemann.disconnect();
-  });
-
+client.on('connect', function() {
+  console.log("Logging to reimann");
 });
 
-app.use(require("..")(app.riemann, {
+app.use(require("..")({
   host: "test.localhost",
   service: "riemann-node-error-handler-tests",
   tags: ["tests"]
