@@ -22,6 +22,6 @@ module.exports = function(client, config) {
       tags: config.tags
     }));
 
-    next();
+    next(err);
   };
 };
